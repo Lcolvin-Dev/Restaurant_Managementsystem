@@ -1,0 +1,59 @@
+﻿@page
+@model RestaurantApp.Pages.Categories.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Category</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Category.ShortDescription)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Category.ShortDescription)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Category.LongDescription)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Category.LongDescription)
+        </dd>
+    </dl>
+</div>
+
+<h4>Meals in this Category</h4>
+
+@if (Model.Category.Meals != null && Model.Category.Meals.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var meal in Model.Category.Meals)
+            {
+                <tr>
+                    <td>@meal.Name</td>
+                    <td>@meal.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No meals found for this category.</p>
+}
+
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Category.CategoryID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

@@ -1,0 +1,33 @@
+﻿@page
+@model RestaurantApp.Pages.Menu.IndexModel
+
+@{
+    ViewData["Title"] = "Menu";
+}
+
+<h1>Menu</h1>
+
+@foreach (var category in Model.Categories)
+{
+    <h3>Category: @category.ShortDescription</h3>
+
+    @if (category.Meals != null && category.Meals.Any())
+    {
+        <ul class="list-unstyled">
+            @foreach (var meal in category.Meals)
+            {
+                <li>
+                    @meal.Name
+                    @if (meal.Note != null)
+                    {
+                        <span style="margin-left:30px;">@meal.Note.Description</span>
+                    }
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No meals in this category.</p>
+    }
+}

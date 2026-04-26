@@ -1,0 +1,88 @@
+﻿@page
+@model RestaurantApp.Pages.Categories.IndexModel
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h1>Categories</h1>
+
+<p>
+    <a asp-page="./Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Category[0].ShortDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category[0].LongDescription)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Category)
+        {
+            string selectedRow = "";
+            if (Model.SelectedCategory != null && item.CategoryID == Model.SelectedCategory.CategoryID)
+            {
+                selectedRow = "table-success";
+            }
+
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShortDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LongDescription)
+                </td>
+                <td>
+                    <a asp-page="./Index" asp-route-id="@item.CategoryID">Select</a> |
+                    <a asp-page="./Edit" asp-route-id="@item.CategoryID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.CategoryID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.CategoryID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.SelectedCategory != null)
+{
+    <h2>Meals for @Model.SelectedCategory.ShortDescription</h2>
+
+    if (Model.SelectedCategory.Meals != null && Model.SelectedCategory.Meals.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Meal</th>
+                    <th>Price</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var meal in Model.SelectedCategory.Meals)
+                {
+                    <tr>
+                        <td>@meal.Name</td>
+                        <td>@meal.Price</td>
+                        <td>
+                            @if (meal.Note != null)
+                            {
+                                @meal.Note.Description
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No meals found for this category.</p>
+    }
+}
