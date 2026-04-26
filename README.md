@@ -1,5 +1,5 @@
 # Restaurant_Managementsystem
-ASP.NET Core application with SQL database integration for managing restaurant operations
+ASP.NET Core application with SQL database integration for managing restaurant operations.
 This project is a web-based restaurant management application built using ASP.NET Core and SQL Server. It demonstrates backend development, database integration, and application configuration.
 
 Technologies Used
